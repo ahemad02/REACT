@@ -1,0 +1,114 @@
+*installation and Appwrite setup*
+
+=>install vitelatest javascript npm i and tailwind for vite and npm i Appwrite
+
+=>create .env file,create appwrite account,
+create project,add a web  platform provide name and hostname localhost , create a database , collection,add attributes like title,content,featuredimage,userid,status,
+proviede index for searching query,in collection go to setting and provide permissions , create a bucket and provide projectid,databaseid,collection and bucket id in env files,inside src create conf folder inside create conf.js and create a conf object inside create a key as names for env variables and convert it to a string like appwriteurl:string(import.meta.vite_appwrite_url) and export it.
+
+=>in env file create VITE_APPWRITE_URL,PROJECT_ID,DATABASE_ID,COLLECTION_ID,BUCKET_ID
+
+=>inside src create appwrite folder and create auth file,import conf file,import client and account from appwrite , create a class with constructor , client and account varible inside constructor create this.client provide projectid for setproject and create this.account=new Account(this.client)
+so any instance can get a access for client and account and it can be used anytime someone create a new object from the class.
+
+=>create a method for createaccount use async await accept parameters as required and use appwrite create method and pass the parameters and handle try catch you can use idea where login method can be called ones the account creation is success
+
+=>create a login method and use appwrite createemailsession method for it.
+
+=>get current user method using appwrite get method,handle error with appwrite service error.
+
+=>logout method using deletesession,create object for class and export
+
+=>create a new file config js for database and storage related service since its not big that's why keeping it in a sama file.
+
+=>import conf,import client,database,storage and query from appwrite.create service class and a client,databases,and bucket.create a constructor define client setpojectid and create an instances of database and storage.
+
+=>create get post,get post by equal,create post ,update post ,delete post,upload file,delete file,getfilepreview.
+
+*END OF BACKEND APPWRITE*
+
+*REDUX SETUP*
+
+=>install redux toolkit and router dom , create pages folder in src , create addpost,allpost,editpost,home,login,post,signup pages.using rfce utility create simple pages.
+
+=>in src create component folder inside create authlayout file name function protected accpet children and authentication props and render children inside it , it will be used to know if tha page requires authentication or not.
+
+=>in src create store and inside it create authslice and store file,inside store import configurestore and create store variable using configurestore and define all the reducers inside it.
+
+=>inside authslice import createslice create a initialstate where status of user will be false and userdata will be null
+
+=>create a authslice using createslice that takes name,initialstate,reducers.reducers are objects where we define login and logout method so once user is login we can change its status to true and store the userdata which will be stored in store because we defined reducers inside it.export reducers and its methods.import reducers in store and define it inside reducers
+
+=>inside main.jsx import createbrowserrouter and routerprovider.import provider and store and wrap everything around provider with store prop and routerprovider with router prop.
+
+=>inside createbrowserrouter create routes browserroutertakes array which takes objects and define sub path in children which also takes an array and define sub routes in it
+import authlayout and wrap login inside authlayout which takes authentication required false as props just like that decide which page requires authentication and which does not.remeber edit post requires slug as param.
+
+=>inside authlayout define the logic to check is user is logged in or not and what to do when user is logged in and authentication is false and what to do when user is not logged in and authentication us required on page.
+
+=>import outlet in app and provide it in fragements to render components inside it.
+
+*COMPONENTS*
+
+=>inside component create container folder and container file inside create a children file to render it.provide div classses for styling.also create logo,button(with props of children,type,bgcolor etc),input(with forward ref),select(with forward ref),postcard in which import link and appwrite config file to put filepreview in img which takes it to post/id get props of id,title,featuredImage,create footer .
+
+*TINY MCE and REACT FORMS*
+
+=>install tinymce and react hook forms,create header folder in component create header file and logoutbtn file in header component,inside logoutbtn import usedispatch,authservice and logout(from store),create logouthandler function and logout button
+
+=>in header file import container useselector logo usenavigation link and logoutbtn,create authstatus from store,
+create navitems array inside it contains object based on active status of auth and slug,inside return create header tag use import container and provide logo in link,
+then in ul loop through nav items and provide li where status is active and onclick navigate to slug.
+
+=>create rte file,import controller editor ,in rte function use props name,control,label,defaultvalue,creta label and wrapped controller use name,control,render field and then use editor use initialvalue,init, and all from docs and oneditrochange.
+
+*POSTFORM*
+
+=>import callback,useform,button,input,select,rte,useselctor,usenavigate,appwriteservice as well.in post function use react hook form to extract resgiter,handlesubmit,watch,setvalue,control,getvalue,andprovide default values.
+
+=>create slugtransfrom using regex,use useeffect to watch title and set slug value using slug transform.
+
+=>return form onsubmit handlesubmit from useform pass your own submit method to it.
+create div import input and use{...register} method to register it to hook for title,do it for slug as well and use oninput in it,use rte and name,label,control,defaultvalue props.then input tag for image,if post is there then preview the image,select the options,button to submit.
+
+=>on submit method if post is there then upload image,delete previous and update the post,and navigate to post-id.if there is no post then create the post and upload the file and provide data featureimage the file id.
+
+*PARSING HTML COMPONENTS*
+
+=>create signup.jsx,rfce,import authservice,link,usenavigate,usestate,button,input,logo,login,useform,usedispatch,state for error,create methods to create account,get current data and pass it to store login and navigate user to homepage after login.
+
+=>create login.jsx,same as signup.
+
+=>post page,install html react parser,import useeffect,usestate,link,usenavigate,useparams,appwriteservice,button,container,parse,useselector,create post state,slug from paramas,check for author is post.userid is quual to userdata.id,handle deletepost method inside handle delete file.use useEffect for getting a post by slug,if you are user provide edit and delete button.
+
+=>in edit post page usestate,slug(params),useeffect to get the post by slug through appwrite.use container and postform(pass post)
+
+=>in add post use container and postform.
+
+=>in all post get all post from appwrite and setposts posts.documents.use container and postcard loop through it using postcard
+
+=>make home same as all post,in login page import login component make sure to import with diff name to avoid conflict,do same in signup page.
+
+*DEBUGGING*
+
+=>in app js import header footer usestate for loading useeffect to check if user is login or not if it is then show header outlet footer otherwise null.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
