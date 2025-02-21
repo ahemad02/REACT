@@ -42,7 +42,15 @@ export class DatabaseService {
     }
   }
 
-  async createPost({ title, slug, content, featuredImage, status, userId }) {
+  async createPost({
+    title,
+    slug,
+    content,
+    featuredImage,
+    status,
+    userId,
+    owner,
+  }) {
     try {
       return await this.databases.createDocument(
         conf.appwriteDatabaseId,
@@ -54,6 +62,7 @@ export class DatabaseService {
           featuredImage,
           status,
           userId,
+          owner,
         }
       );
     } catch (error) {

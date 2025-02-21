@@ -7,6 +7,8 @@ import Select from "../Select";
 import databaseService from "../../appwrite/config";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AddPost } from "../../store/postSlice";
 
 export default function PostForm({ post }) {
   const { register, handleSubmit, watch, setValue, control, getValues } =
@@ -28,6 +30,7 @@ export default function PostForm({ post }) {
   }, [post, setValue]);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
@@ -58,9 +61,11 @@ export default function PostForm({ post }) {
         const dbPost = await databaseService.createPost({
           ...data,
           userId: userData.$id,
+          owner: userData.name,
         });
 
         if (dbPost) {
+          // dispatch(AddPost(dbPost)); (Example)
           navigate(`/post/${dbPost.$id}`);
         }
       }

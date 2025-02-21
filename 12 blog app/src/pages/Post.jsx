@@ -12,6 +12,7 @@ function Post() {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
   const isAuthor = post && userData ? post.userId === userData.$id : false;
+  const postData = useSelector((state) => state.post.posts);
 
   useEffect(() => {
     if (slug) {
@@ -41,6 +42,11 @@ function Post() {
             alt={post.title}
             className="rouded-xl mb-2.5"
           />
+          {
+            <li className="text-2xl font-bold flex justify-evenly text-purple-800">
+              Post by : {post.owner}
+            </li>
+          }
           {isAuthor && (
             <div className="absolute-right-6 top-6 ">
               <Link to={`/edit-post/${post.$id}`}>
